@@ -1,0 +1,42 @@
+#topInput {
+    font-size: 40px;
+    color: grey;
+    height: 40px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    height: 20%;
+
+    border-collapse: collapse;
+    width: 25%;
+  }
+
+#clear, button {
+    background-color: #777a8c;
+    border: none;
+    width: 100%;
+  
+}
+
+#zero, button {
+    background-color: #777a8c;
+    border: none;
+    width:100%;
+}
+
+.numberGray {
+    background-color: #777a8c;
+    border: none;
+}
+
+.buttonGray {
+    background-color: #777a8c;
+    border: none;
+}
+
+.operatorOrange, .colorOperator {
+    background-color: orange;
+    border: none;
+    width:100%;
+}

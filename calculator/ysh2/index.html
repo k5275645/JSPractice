@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charsetj='utf-8'>
+    <title>Calculator</title>
+    <link rel='stylesheet' href='style.css'>
+    <style>
+    </style>
+</head>
+<body>
+<div class='calcTable'>
+<table border='1'>
+    <tr>
+        <td colspan='4' id='topInput'></td>
+    </tr>
+    <tr>
+        <td id="clear" colspan='3'><button class="buttonGray" onclick='clearMath()'>clear</button></td>
+        <td id=""></td>
+    </tr>
+    <tr>
+    	<td class="numberGray"><button class="buttonGray" onclick='doOperator(" ( ")'>(</button></td>
+    	<td class="numberGray"><button class="buttonGray" onclick='doOperator(" ) ")'>)</button></td>
+    	<td class="numberGray"><button class="buttonGray" onclick='deleteMath()'>del</button></td>
+    	<td class="operatorOrange"><button class="colorOperator" onclick='doOperator(" / ")'>/</button></td>
+    </tr>
+    <tr>
+        <td class="numberGray"><button class="buttonGray" onclick='doNumber(7)'>7</button></td>
+        <td class="numberGray"><button class="buttonGray" onclick='doNumber(8)'>8</button></td>
+        <td class="numberGray"><button class="buttonGray" onclick='doNumber(9)'>9</button></td>
+        <td class="operatorOrange"><button class="colorOperator" onclick='doOperator(" * ")'>x</button></td>
+    </tr>
+    <tr>
+        <td class="numberGray"><button class="buttonGray" onclick='doNumber(4)'>4</button></td>
+        <td class="numberGray"><button class="buttonGray" onclick='doNumber(5)'>5</button></td>
+        <td class="numberGray"><button class="buttonGray" onclick='doNumber(6)'>6</button></td>
+        <td class="operatorOrange"><button class="colorOperator" onclick='doOperator(" - ")'>-</button></td>
+    </tr>
+    <tr>
+        <td class="numberGray"><button class="buttonGray" onclick='doNumber(1)'>1</button></td>
+        <td class="numberGray"><button class="buttonGray" onclick='doNumber(2)'>2</button></td>
+        <td class="numberGray"><button class="buttonGray" onclick='doNumber(3)'>3</button></td>
+        <td class="operatorOrange"><button class="colorOperator" onclick='doOperator(" + ")'>+</button></td>
+    </tr>
+    <tr>
+        <td id='zero' colspan='2'><button class="buttonGray" onclick='doNumber(0)'>0</button></td>
+        <td class="numberGray"><button class="buttonGray" onclick='doNumber(".")'>.</button></td>
+        <td class="operatorOrange"><button class="colorOperator" onclick='operate()'>=</button></td>
+    </tr>
+</table>
+</div>
+<script src='script.js'></script>
+</body>
+</html>
