@@ -68,7 +68,9 @@ function opChk(e){
 
     op = e.target.textContent;
     console.log(op);
+    console.log(nextOp);
     nextOp = 0;
+    console.log(nextOp);
 
 
 }
