@@ -48,7 +48,7 @@ function numChk(event) {
             if (!afterOp) {
                 result = stack(result, cVal);
             } else {
-        
+                nextOp = stack(nextOp, cVal);
             }
         }
     }
@@ -63,14 +63,12 @@ function opChk(e){
     e.preventDefault();
     afterOper = true;
 
-    cal();
-    printResult(result);
-
+    cal(result, nextOp);
     op = e.target.textContent;
     console.log(op);
+    printResult(op);
+
     nextOp = 0;
-
-
 }
 
 //
