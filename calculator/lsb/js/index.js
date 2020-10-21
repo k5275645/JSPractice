@@ -46,7 +46,7 @@ function calculateNum(x, y) {
         result = (x - y).toString();
     } else if (operator === "multiply") {
         result = (x * y).toString();
-    } else if (operator === "div") {
+    } else if (operator === "division") {
         result = (x / y).toString();
     } else if (operator === "sin") {
         result = ((Math.sin(x))).toString();
@@ -97,6 +97,7 @@ function handleEqual(event) {
 function handleOper(event) {
     event.preventDefault();
     afterOper = true;
+    console.log("count : " + count);
 
     if (count > 0) {
         // parseFloat
@@ -110,11 +111,10 @@ function handleOper(event) {
         calculateNum(result, operand);
         paintNum(result);
     }
-
     operator = event.target.parentNode.id;
     operand = 0;
     count += 1;
-
+    console.log("count : " + count);
     console.log("Oper Btn :", operator);
 }
 
