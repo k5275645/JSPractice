@@ -71,7 +71,6 @@ function numChk(e) {
             }
         }
     }
-    console.log("result : " + result + " tempResult : " + tempResult + " op : " + op + " next Op : " + nextOp);
 }
 
 //연산자처리
@@ -79,6 +78,7 @@ function opChk(e) {
     e.preventDefault();
     afterOp = true;
     console.log("afterOp : " + afterOp);
+    printResult(e.target.textContent);
     if(e.target.textContent !== "+" && e.target.textContent !== "-" 
     && e.target.textContent !== "*" && e.target.textContent !== "/"
     && e.target.textContent !== "%" && e.target.textContent !== "xy"
@@ -86,7 +86,7 @@ function opChk(e) {
         afterOp = false;
         if(result !== 0){
             reset();
-            printResult("문법 error, reset");
+            printResult("문법error,reset");
         }
     }
     console.log("afterOp : " + afterOp);
@@ -134,7 +134,8 @@ function equal(e){
         calIntensive(result);
         printResult(result);
         processStack(`=(${result})`);
-        result = 0;   
+        tempResult = result;
+        result = 0;
     }
     console.log("result : " + result + " tempResult : " + tempResult + " op : " + op + " next Op : " + nextOp);
 }
@@ -178,9 +179,15 @@ function calIntensive(x){
     }
 }
 
-//펙토리얼 계산(if(0)=false이다?)
+//펙토리얼 계산(cf..if(0)=false이다?)
 function factorial(n){
-    return n ? n * factorial(n-1) : 1;
+    console.log(Number.isInteger(n));
+    if(Number.isInteger(n)){
+        return n ? n * factorial(n-1) : 1;
+    } else {
+        reset();
+        printResult("문법 error, reset");
+    }
 }
 
 //초기화
