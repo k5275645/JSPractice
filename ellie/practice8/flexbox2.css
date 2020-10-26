@@ -1,0 +1,35 @@
+.container{
+    padding-top: 100px;
+    background:beige;
+    height: 100vh;
+    display: flex;
+    
+}
+
+.item{
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
+}
+
+.item1{
+    background:#ba68c8;
+    /* flex-grow: 2;
+    flex-shrink: 1; */
+    /* flex-basis: 60%; */
+}
+
+.item2{
+    background:#b11acc;
+    /* flex-grow: 1;
+    flex-shrink: 1; */
+    /* flex-basis: 30%; */
+    align-self: center;
+}
+
+.item3{
+    background:#68c86d;
+    /* flex-grow: 1;
+    flex-shrink: 2; */
+    /* flex-basis: 10%; */
+}

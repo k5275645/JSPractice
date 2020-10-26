@@ -1,0 +1,64 @@
+.container {
+  background: beige;
+  height: 100vh;
+  display: flex;
+  /* flex-direction: row; 기본값*/
+  /* flex-direction: column; */
+  /* flex-wrap: nowrap; 기본값*/
+  /* flex-wrap: wrap; */
+  /* flex-flow: column wrap; border처럼 여러설정 함께 가능*/
+  /* justify-content: flex-start; 기본*/
+  /* justify-content: flex-end; */
+  /* justify-content: space-around; 양쪽에 간격을 가지나 처음과 끝은 한쪽 간격만 가짐*/
+  /* justify-content: space-evenly; 동일간격*/
+  /* align-items: center; */
+  /* align-content: center; */
+
+  /* 어차피 까먹으니 자세한 사항은 필요할 때 하나씩 적용하며 익히기 */
+}
+
+.item {
+  width: 40px;
+  height: 40px;
+  border: 1px solid black;
+}
+
+.item1 {
+  background: #ba68c8;
+}
+
+.item2 {
+  background: #b11acc;
+}
+
+.item3 {
+  background: #68c86d;
+}
+
+.item4 {
+  background: #c86868;
+}
+
+.item5 {
+  background: #284d86;
+}
+
+.item6 {
+  background: #279fb4;
+}
+
+.item7 {
+  background: #29a834;
+}
+
+.item8 {
+  background: #745555;
+}
+
+.item9 {
+  background: #5f132c;
+}
+
+.item10 {
+  background: #24742f;
+}
