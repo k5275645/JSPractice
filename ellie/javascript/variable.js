@@ -38,6 +38,14 @@ var age;
 const daysInWeek = 7;
 const maxNumber = 5;
 
+// Note!
+// Immutable data types: primitive types, frozen object(i.e. object.freeze())
+// Mutable data types: all objects by default are mutable in JS
+// favor immutable data type always for a few reasons:
+// - security
+// - thread safty
+// - reduce human mistakes
+
 // 4. Variable Types
 // primitive, single item: number, string, boolean, null, undefined, symbol
 // object, box container
