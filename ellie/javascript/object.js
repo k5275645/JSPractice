@@ -102,6 +102,7 @@ Object.assign(user4, user);
 console.log(user4); // {name: "coder", age: "20"}
 
 // another example
+// 뒤에 나오는 객체가 들어감..?
 const fruit1 = {color:'red'};
 const fruit2 = {color:'blue', size: 'big'};
 const mixed = Object.assign({}, fruit1, fruit2);
