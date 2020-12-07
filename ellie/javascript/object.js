@@ -12,8 +12,8 @@ const obj1 = {}; // 'object literal' syntax
 const obj2 = new Object(); // 'object constructor' syntax
 
 function print(person){
-    console.log(person.name);
-    console.log(person.age);
+    console.log(person.name); // ellie
+    console.log(person.age); // 4
 }
 
 const ellie = { name: 'ellie', age: 4};
@@ -22,11 +22,11 @@ print(ellie);
 // with Javascript magic (dynamically typed language)
 // can add properties later
 ellie.hasJob = true; // 선언후 추가 가능
-console.log(ellie.hasJob);
+console.log(ellie.hasJob); // ture
 
 // can delete properties later
 delete ellie.hasJob; // 삭제까지도 가능
-console.log(ellie.hasJob);
+console.log(ellie.hasJob); // undefined
 
 // 2. Computed properties
 // key should be always string
@@ -67,7 +67,6 @@ console.log(ellie.random); // undefined
 
 // 6. for..in vs for..of
 // for (key in obj)
-console.clear();
 for(let key in ellie){
     console.log(key);
 }

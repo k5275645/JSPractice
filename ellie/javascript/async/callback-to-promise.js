@@ -34,23 +34,24 @@ class UserStorage {
 const userStorage = new UserStorage();
 const id = prompt('enter your id');
 const password = prompt('enter your password');
-// userStorage
-//     .loginUser(id, password)
-//     .then(userStorage.getRoles)
-//     .then(user => alert(`Hello ${user.name}, you have a ${user.role} role`))
-//     .catch(console.log);
+userStorage
+    .loginUser(id, password)
+    .then(userStorage.getRoles)
+    .then(user => alert(`Hello ${user.name}, you have a ${user.role} role`))
+    .catch(console.log);
 
-async function asyncPractice(){
-    try{
-        const loggedUser = await userStorage.loginUser(id, password);
-        const getRole = await userStorage.getRoles(id);
-        return `${getRole.name} + ${getRole.role}`;
-    }catch(error){
-        console.log(error);
-    }
-}
 
-asyncPractice().then(console.log);
+// async function asyncPractice(){
+//     try{
+//         const loggedUser = await userStorage.loginUser(id, password);
+//         const getRole = await userStorage.getRoles(id);
+//         return `${getRole.name} + ${getRole.role}`;
+//     }catch(error){
+//         console.log(error);
+//     }
+// }
+
+// asyncPractice().then(console.log);
 
 
 // userStorage.loginUser(

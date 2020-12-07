@@ -1,13 +1,13 @@
 // Don't give up
 
 // 함수 선언
-function doSomething(add){
+function doSomething(add) {
     console.log(add);
-    const result = add(2,3);
+    const result = add(2, 3);
     console.log(result);
 }
 
-function add(a, b){
+function add(a, b) {
     const sum = a + b;
     return sum;
 }
@@ -17,5 +17,5 @@ function add(a, b){
 
 const addFun = add;
 console.log(addFun);
-const result = addFun(3,4);
+const result = addFun(3, 4);
 console.log(result);

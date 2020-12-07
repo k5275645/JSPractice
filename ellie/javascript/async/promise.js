@@ -8,9 +8,9 @@
 // when new Promise is created, the executor run automatically.(주의, 만들면 executor가 바로 실행됨)
 const promise = new Promise((resolve, reject) => {
     // doing some heavy work (network, read files)
-    console.log('doing something');
+    console.log('doing something'); // doing sumething
     setTimeout(() => {
-        resolve('ellie');
+        resolve('ellie'); // ellie
         reject(new Error('no network'));
     }, 2000);
 });
@@ -36,14 +36,14 @@ const fetchNumber = new Promise((resolve, reject) => {
 });
 
 fetchNumber
-    .then(num => num * 2)
-    .then(num => num * 3)
+    .then(num => num * 2) // 2
+    .then(num => num * 3) // 6
     .then(num => {
         return new Promise((resolve, reject) => {
             setTimeout(() => resolve(num - 1), 1000);
         });
     })
-    .then(num => console.log(num));
+    .then(num => console.log(num)); // 5
 
 // 4. Error Handling
 const getHen = () =>
