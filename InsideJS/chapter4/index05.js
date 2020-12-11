@@ -47,4 +47,54 @@ function parent1(){
 }
 
 let inner = parent1();
-inner(); // 100
+inner(); // 10
+// parent1()과 같은 부모 함수 스코프의 변수를 참조하는 inner()와 같은 함수를 '클로저'라고 한다.
+
+// 4.3.4 함수를 리턴하는 함수
+let self = function(){
+    console.log('a');
+    return function(){
+        console.log('b');
+    }
+}
+self();        // a
+self = self(); // a
+self();        // b
+
+// 4.4 함수 호출과 this
+// 4.4.1 arguments 객체
+function func(arg1, arg2){
+    console.log(arg1, arg2);
+}
+
+func(); // undefined undefined
+func(1); // 1 undefined
+func(1,2); // 1 2
+func(1,2); // 1 2
+// 적게 호출된 인수는 undefined처리, 초과된 인수는 무시
+
+// arguments는 객체이지 배열이 아니다.
+function add(a,b){
+    console.dir(arguments);
+    return a+b;
+}
+
+console.log(add(1)); // NaN
+console.log(add(1,2)); // 3
+console.log(add(1,2,3)); // 3
+
+// argumnets 객체는 매개변수가 정해지지 않은 함수를 구현하거나,
+// 전달된 인자의 개수에 따라 다른 처리를 해야하는 함수를 개발할 때 유용함.
+function sum(){
+    let result = 0;
+    for(let i=0; i < arguments.length; i++){
+        result += arguments[i];
+    }
+    return result;
+}
+
+console.log(sum(1,2,3)); // 6
+console.log(sum(1,2,3,4,5,6)); // 21
+
+
+
