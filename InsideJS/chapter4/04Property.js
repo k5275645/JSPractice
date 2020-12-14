@@ -1,5 +1,4 @@
 // 4.2.3 함수 객체의 기본 프로퍼티
-
 function add(x, y) {
     return x + y;
 };

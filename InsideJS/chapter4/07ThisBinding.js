@@ -133,7 +133,6 @@ let foo3 = new Person3('foo', 30, 'man');
 console.dir(foo3);
 
 // 같은 경우지만 객체를 return하지 않으면 무시하고 this로 바인딩된 객체가 리턴된다.
-
 function Person4(name, age, gender){
     this.name = name;
     this.age = age;

@@ -37,5 +37,3 @@ console.dir(b) // Object
 
 // 객체 -> (proto) -> Object.prototype
 // 배열 -> (proto) -> Array.prototype -> (proto) -> Object.prototype
-
-
