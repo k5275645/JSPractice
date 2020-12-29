@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        // 여기에 예제 코드를 넣으세요.
+        axios.get('http://www.zerocho.com/api/get')
+            .then((result) => {
+                console.log(result);
+                console.log(result.data);
+            })
+            .catch((error) => {
+                console.log(error)
+            });
+    </script>
+</head>
+
+<body>
+
+</body>
+<script>
+    const example = {
+        a: 123,
+        b: {
+            c: 135,
+            d: 146
+        }
+    };
+    //const a = example.a;
+    //const d = example.b.d;
+
+    // 구조 분해 문법(this가 있는 경우에는 하지 않는 것이 좋다.)
+    const {
+        a,
+        b: {
+            d
+        }
+    } = example;
+    console.log(a); // 123
+    console.log(d); // 456
+
+    arr = [1, 2, 3, 4, 5];
+    //const x = arr[0];
+    //const y = arr[1];
+    //const z = arr[4];
+
+    const [x, y, , , z] = arr;
+    console.log(x);
+    console.log(y);
+    console.log(z);
+</script>
+
+</html>
