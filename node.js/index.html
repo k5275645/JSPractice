@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     <script>
         // 여기에 예제 코드를 넣으세요.
         axios.get('http://www.zerocho.com/api/get')
@@ -16,7 +17,21 @@
             .catch((error) => {
                 console.log(error)
             });
+
+            (async () => {
+            try {
+                const result = await axios.post('https://www.zerocho.com/api/post/json', {
+                    name: 'zerocho',
+                    birth: 1994,
+                });
+                console.log(result);
+                console.log(result.data);
+            } catch (error) {
+                console.error(error);
+            }
+        })();
     </script>
+
 </head>
 
 <body>

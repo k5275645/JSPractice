@@ -35,6 +35,7 @@ class UserStorage {
             }
         }, 2000);
     }
+    
 
     getRoles(user, OnSuccess, onError) {
         setTimeout(() => {
