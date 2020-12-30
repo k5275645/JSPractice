@@ -20,7 +20,6 @@ function printWithDelay(print, timeout) {
 
 printWithDelay(() => console.log('async callback'), 2000); // 비동기
 
-
 // Callback Hell example
 class UserStorage {
     loginUser(id, password, onSuccess, onError) {
@@ -35,7 +34,7 @@ class UserStorage {
             }
         }, 2000);
     }
-    
+
 
     getRoles(user, OnSuccess, onError) {
         setTimeout(() => {
