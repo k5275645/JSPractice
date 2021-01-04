@@ -126,27 +126,142 @@ setTimeout(function (name) {
 // 콜백 지옥 해결 - 기명함수로 변환
 let coffeeList = '';
 
-let addEspresso = function(name){
+let addEspresso = function (name) {
     coffeeList = name;
     console.log(coffeeList);
-    setTimeout(addAmericano, 500, '아메리카노');
+    setTimeout(addAmericano, 500, '아메리카노6');
 }
 
-let addAmericano = function(name){
+let addAmericano = function (name) {
     coffeeList += ', ' + name;
     console.log(coffeeList);
-    setTimeout(addMoca, 500, '카페모카');
+    setTimeout(addMoca, 500, '카페모카7');
 }
 
-let addMoca = function(name){
+let addMoca = function (name) {
     coffeeList += ', ' + name;
     console.log(coffeeList);
-    setTimeout(addLatte, 500, '카페라떼');
+    setTimeout(addLatte, 500, '카페라떼8');
 }
 
-let addLatte = function(name){
+let addLatte = function (name) {
     coffeeList += ', ' + name;
     console.log(coffeeList);
 }
 
-setTimeout(addEspresso, 500, '에스프레소');
+setTimeout(addEspresso, 500, '에스프레소5');
+// js는 비동기적인 일련의 작업을 동기적으로, 혹은 동기적인 것처럼 보이게끔 처리해주는 장치를 마련.
+// ES6에서는 Promise, Generator 등이 도입, ES2017에서는 async/await가 도입.
+
+// 비동기 작업의 동기적 표현(1) - Promise(1)
+new Promise(function (resolve) {
+    setTimeout(function () {
+        let name = '에스프레소9';
+        console.log(name);
+        resolve(name);
+    }, 500);
+}).then(function (prevName) {
+    return new Promise(function (resolve) {
+        setTimeout(function () {
+            let name = prevName + ', 아메리카노10';
+            console.log(name);
+            resolve(name);
+        }, 500)
+    });
+}).then(function (prevName) {
+    return new Promise(function (resolve) {
+        setTimeout(function () {
+            let name = prevName + ', 카페모카11';
+            console.log(name);
+            resolve(name);
+        }, 500)
+    });
+}).then(function (prevName) {
+    return new Promise(function (resolve) {
+        setTimeout(function () {
+            let name = prevName + ', 카페라떼12';
+            console.log(name);
+            resolve(name);
+        }, 500)
+    });
+});
+// Promise의 인자로 넘겨주는 콜백 함수는 호출할 때 바로 실행되지만,
+// 그 내부에 resolve또는 reject함수를 호출하는 구문이 있을 경우,
+// 둘 중 하나가 실행되지 전까지는 다음(then) 또는 오류 구문(catch)으로 넘어가지 않습니다.
+// 따라서 비동기 작업이 완료될 때 비로소 resolve 또는 reject를 호출하는 방법으로 
+// 비동기 작업의 동기적 표현이 가능하다.
+
+// 비동기 작업의 동기적 표현(2) - Promise(2)
+// 클로저 개념은 다음장에서 설명
+let addCoffee = function (name) {
+    //console.log(name);
+    return function (prevName) {
+        //console.log(prevName);
+        return new Promise(function (resolve) {
+            setTimeout(function () {
+                let newName = prevName ? (prevName + ', ' + name) : name;
+                // 문자열이 비었으면 false임
+                console.log(newName);
+                resolve(newName);
+            }, 500);
+        });
+    };
+};
+addCoffee('에스프레소13')()
+    .then(addCoffee('아메리카노14'))
+    .then(addCoffee('카페모카15'))
+    .then(addCoffee('카페라떼16'));
+
+// 비동기 작업의 동기적 표현 (3) - Generator
+let addCoffee2 = function (prevName, name) {
+    setTimeout(function () {
+        coffeeMaker.next(prevName ? prevName + ', ' + name : name);
+    }, 500);
+};
+
+let coffeeGenerator = function* () { // Generator 함수
+    let espresso = yield addCoffee2('', '에스프레소17');
+    console.log(espresso);
+    let americano = yield addCoffee2(espresso, '아메리카노18');
+    console.log(americano);
+    let mocha = yield addCoffee2(americano, '카페모카19');
+    console.log(mocha);
+    let latte = yield addCoffee2(mocha, '카페라떼20');
+    console.log(latte);
+};
+let coffeeMaker = coffeeGenerator();
+coffeeMaker.next();
+// Generator 함수를 실행하면 Iterator가 반환되는데, Iterator는 next라는 메서드를 가진다.
+// next 메서드를 호출하면 Generator 함수 내부에서 가장 먼저 등장하는 yield에서 함수실행을 멈춘다.
+// 다시 next메서드를 호출하면 앞서 멈췄던 부분부터 시작해서 그 다음 등장하는 yield에서 함수실행이 멈춘다.
+// 결국, 비동기 작업이 완료되는 시점마다 next메서드를 호출해준다면 Generator 함수 내부의 소스가
+// 위부터 아래로 순차적으로 진행된다.
+
+// 비동기 작업의 동기적 표현(4) - Promise + Async/await
+let addCoffee3 = function(name) {
+    return new Promise(function(resolve){
+        setTimeout(function(){
+            resolve(name);
+        }, 500);
+    });
+};
+
+let coffeeMaker2 = async function(){
+    let coffeeList = '';
+    let _addCoffee = async function(name){
+        coffeeList += (coffeeList ? ',' : '') + await addCoffee3(name);
+    };
+    await _addCoffee('에스프레소21');
+    console.log(coffeeList);
+    await _addCoffee('아메리카노22');
+    console.log(coffeeList);
+    await _addCoffee('카페모카23');
+    console.log(coffeeList);
+    await _addCoffee('카페라떼24');
+    console.log(coffeeList);
+}
+coffeeMaker2();
+// 비동기 작업을 하고자 하는 함수 앞에 async를 표기하고,
+// 함수 내부에서 실질적인 비동기 작업이 필요한 위치마다 await를 표기하는 것만으로
+// 뒤의 내용을 Promise로 자동 변환하고, 해당 내용이 resolve된 이후에야 다음으로 진행한다.
+// 즉 Promise의 then과 흡사한 효과를 얻을 수 있습니다.
