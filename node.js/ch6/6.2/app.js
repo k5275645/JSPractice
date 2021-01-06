@@ -1,53 +1,56 @@
 const express = require('express');
+dotenv.config(); // process.env를 쓰는 패키지 보다는 위에 있어야함
 const path = require('path');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const multer = require('multer');
+const dotenv = require('dotenv');
 const {
     connect
 } = require('tls');
 
 const app = express();
 
+//
 app.set('port', process.env.PORT || 3000);
 
-// morgan
+// morgan - 실행정보?
 app.use(morgan('dev'));
 //app.use(morgan('combined')); // 더 자세히 알려줌
 
-// 경로 처리 -> 상단에 배치되는 것이 좋다.(다른 미들웨어를 모두 실행하면서 갈 필요가 없다?)
+// static : 경로 처리 -> 상단에 배치되는 것이 좋다.(다른 미들웨어를 모두 실행하면서 갈 필요가 없다?)
 // app.use('요청 경로', express.static(path.join('실제경로')));
 // localhost:3000/index.html                    6.2/public-3030/index.html
 // localhost:3000/hello.css                     6.2/public-3030/hello.css
 app.use('/', express.static(path.join(__dirname, 'public')));
 
-//
+// session
 app.use(session({
     resave: false,
     saveUninitialized: false,
-    secret: 'nock',
+    secret: process.env.COOKIE_SECRET,
     cookie: {
         httpOnly: true,
-
+        secure: false,
     },
     name: 'connect.sid',
 }));
 
 // 미들웨어 확장법
-app.use('/', (req, res, next) => {
-    if(req.session.id){
-        express.static(__dirname, 'public')(req,res,next)
-    } else {
-        next();
-    }
-});
+// app.use('/', (req, res, next) => {
+//     if(req.session.id){
+//         express.static(__dirname, 'public')(req,res,next)
+//     } else {
+//         next();
+//     }
+// });
 
-//
+// multer
 app.use(multer().array());
 
 // cookieParser
-app.use(cookieParser());
+app.use(cookieParser(process.env.COOKIE_SECRET));
 
 // bodyParser
 app.use(express.json());
@@ -63,13 +66,14 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use((req, res, next) => {
-    req.session.data = 'nock비번';
-
-})
+// app.use((req, res, next) => {
+//     req.session.name = 'nock';
+//     req.sessionID;
+//     req.session.destroy();
+// })
 
 app.get('/', (req, res) => {
-    req.session.data // nock비번
+    //req.session.data // nock비번
     res.sendFile(path.join(__dirname, './index.html'));
 });
 
