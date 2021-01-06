@@ -75,6 +75,48 @@ console.log(car2.moved); // 10
 console.log(car2.fuel); // 1000
 console.log(car2.power); // 100
 car2.run();
+console.log('-------------------------');
 // 값을 변경하려는 시도는 실패하게 했지만, run 메서드를 다른 내용으로 덮어씌우는 어뷰징은 가능하다.
-// 어뷰징을 막기 위해서는 객체를 return하기 전에 미리 변경할 수 없게끔 조치를 취해야 합니다.
+// 어뷰징을 막기 위해서는 객체를 return하기 전에 미리 변경할 수 없게끔 조치를 취해야 한다.
 
+// 클로저로 변수를 보호한 자동차 객체
+let createCar2 = function () {
+    fuel = Math.ceil(Math.random() * 10 + 10); // 연료(L)
+    power = Math.ceil(Math.random() * 3 + 2); // 연비(km/L)
+    moved = 0; // 총 이동거리
+    let publicMembers = {
+        get moved() {
+            return moved;
+        },
+        run: function () {
+            let km = Math.ceil(Math.random() * 6);
+            let wasteFuel = km / power;
+            if (fuel < wasteFuel) {
+                console.log('이동불가');
+                return;
+            }
+            fuel -= wasteFuel;
+            moved += km;
+            console.log(km + 'km 이동 (총 ' + moved + 'km). 남은 연료 : ' + fuel);
+        }
+    };
+    Object.freeze(publicMembers);
+    return publicMembers;
+}
+let car3 = createCar2();
+car3.run();
+car3.run();
+car3.run();
+/*
+Object.freeze() 메서드는 객체를 동결. 동결된 객체는 더 이상 변경될 수 없다.
+즉, 동결된 객체는 새로운 속성을 추가하거나 존재하는 속성을 제거하는 것을 방지하며
+존재하는 속성의 불변성, 설정 가능성(configurability), 작성 가능성이 변경되는 것을 방지하고,
+존재하는 속성의 값이 변경되는 것도 방지. 또한, 동결 객체는 그 프로토타입이 변경되는것도 방지.
+freeze()는 전달된 동일한 객체를 반환.
+*/
+
+// 클로저를 활용해 접근 권한을 제어하는 방법
+// 1. 함수에서 지역변수 및 내부함수 등을 생성한다.
+// 2. 외부에 접근권한을 주고자 하는 대상들로 구성된 참조형 데이터
+// (대상이 여럿일 때는 객체 또는 배열, 하나일 때는 함수)를 return한다.
+// -> return한 변수들은 공개 멤버가 되고, 그렇지 않은 변수들은 비공개 멤버가 된다.
