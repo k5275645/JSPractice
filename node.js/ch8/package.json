@@ -1,7 +1,7 @@
 {
-  "name": "learn-sequelize",
+  "name": "learn-mongoose",
   "version": "0.0.1",
-  "description": "시퀄라이즈를 배우자",
+  "description": "몽구스를 배우자",
   "main": "app.js",
   "scripts": {
     "start": "nodemon app"
@@ -10,11 +10,9 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
+    "mongoose": "^5.9.10",
     "morgan": "^1.10.0",
-    "mysql2": "^2.1.0",
-    "nunjucks": "^3.2.1",
-    "sequelize": "^6.3.5",
-    "sequelize-cli": "^6.2.0"
+    "nunjucks": "^3.2.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.3"
