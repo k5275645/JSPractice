@@ -1,5 +1,10 @@
 // 실행 컨텍스트 -> 실행할 코드에 제공할 환경 정보들을 모아놓은 객체
 
+// VariableEnviroment에 담기는 내용은 LexicalEnviroment와 같지만
+// 최조 실행 시에 스냅샷을 유지하는 점이 다르다.
+// 실행 컨텍스트를 생성할 때 VariableEnviroment에 먼저 정보를 담은 다음,
+// 이를 복사해서 LexicalEnviroment를 만들고, 이후에는 LexicalEnviroment를 활용한다.
+
 // VariableEnviroment : 현재 컨텍스트 내의 식별자들에 대한 정보 + 외부 환경 정보,
 // 선언 시점의 LexicalEnvironment의 스냅샷으로, 변경사항은 반영되지 않음.
 
@@ -11,10 +16,7 @@
 
 // VariableEnviroment, LexicalEnvironmonet의 내부는 
 // environmentRecord와 out-EnviromentReference로 구성되어 있다.
-// 초기화 과정 중에는 사실상 완전히 동일하고 이후 코드 진행에 따라 서로 달라진다.
 // environmentRecord에는 현재 컨텍스트와 관련된 코드의 식별자 정보들이 저장된다.
-
-
 
 // 2-3-1 environmentRecord와 호이스팅
 
@@ -50,39 +52,3 @@ let multiply = function (a,b){ // 함수 표현식, 변수는 선언부만 끌�
 console.log(sum(1,2)); // 3
 console.log(multiply(3,4)); //12
 // -> 상대적으로 함수 표현식이 안전하다.
-
-// 2-3-2 스코프, 스코프 체인, outerEnvironmentReference
-// 스코프 -> 식별자에 대한 유효범위
-// 여러 스코프에서 동일한 식별자를 선언한 경우
-// -> 무조건 스코프 체인 상에서 가장 먼저 발견된 식별자에만 접근 가능하다.
-
-// 스코프 체인
-var aa = 1;
-var outer = function(){
-    var inner = function(){
-        console.log(aa); // undefined
-        var aa = 3;
-    };
-    inner(); 
-    console.log(aa); // 1
-};
-outer();
-console.log(aa); // 1
-
-// 참고
-var aaa = 1;
-var outer2 = function(){
-    var bbb = 2;
-    var inner2 = function(){
-        console.log(bbb); // 2
-        console.dir(inner2);
-        //debugger;
-    };
-    inner2();
-};
-outer2();
-
-
-
-
-
