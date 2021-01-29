@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="form">
+            <form class="var-form">
+                <label>변수명 : </label>
+                <input type="text" name="var-name">
+                <label>에 변수값 : </label>
+                <input type="text" name="var-value"><span>을 대입</span>
+                <br>
+                <button type="submit" class="var-append">변수 추가</button>
+            </form>
+            <form class="op-form">
+                <label>조건식 : </label>
+                <input type="text">
+                <label>이면 계산식 :</label>
+                <input type="text"><span>을 계산</span>
+                <br>
+                <button type="submit" class="op-append">식 추가</button>
+            </form>
+        </div>
+        <div class="var">
+            <table border="1" class="var-table">
+                <tr>
+                    <th>변수명</th>
+                    <th>변수값</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                </tr>
+            </table>
+        </div>
+        <div class="op">
+            <table border="1" class="op-table">
+                <tr>
+                    <th>조건식</th>
+                    <th>계산식</th>
+                </tr>
+                <tr>
+                    <td>11111111111111111111111111111111111111</td>
+                    <td>11111111111111111111111111111111111111</td>
+                </tr>
+                <tr>
+                    <td>11111111111111111111111111111111111111</td>
+                    <td>11111111111111111111111111111111111111</td>
+                </tr>
+            </table>
+        </div>
+        <button type="button" class="add">조건/계산식 계산</button>
+    </div>
+    <script src="index.js"></script>
+</body>
+
+</html>
