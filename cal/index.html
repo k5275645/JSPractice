@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>cal</title>
     <link rel="stylesheet" type="text/css" href="index.css">
-
 </head>
 
 <body>
@@ -16,54 +15,62 @@
                 <label>변수명 : </label>
                 <input type="text" name="var-name">
                 <label>에 변수값 : </label>
-                <input type="text" name="var-value"><span>을 대입</span>
+                <input type="text" name="var-value">
+                <span>을 대입</span>
                 <br>
                 <button type="submit" class="var-append">변수 추가</button>
+                <br><br><br>
             </form>
             <form class="op-form">
                 <label>조건식 : </label>
-                <input type="text">
+                <input type="text" name="op-condition">
                 <label>이면 계산식 :</label>
-                <input type="text"><span>을 계산</span>
+                <input type="text" name="op-formula">
+                <span>을 계산</span>
                 <br>
                 <button type="submit" class="op-append">식 추가</button>
+                <br><br><br>
             </form>
         </div>
-        <div class="var">
+        <div>
             <table border="1" class="var-table">
-                <tr>
-                    <th>변수명</th>
-                    <th>변수값</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>변수명</th>
+                        <th>변수값</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
             </table>
         </div>
-        <div class="op">
+        <br>
+        <div>
             <table border="1" class="op-table">
-                <tr>
-                    <th>조건식</th>
-                    <th>계산식</th>
-                </tr>
-                <tr>
-                    <td>11111111111111111111111111111111111111</td>
-                    <td>11111111111111111111111111111111111111</td>
-                </tr>
-                <tr>
-                    <td>11111111111111111111111111111111111111</td>
-                    <td>11111111111111111111111111111111111111</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>조건식</th>
+                        <th>계산식</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
             </table>
         </div>
-        <button type="button" class="add">조건/계산식 계산</button>
+        <br>
+        <button type="button" class="cal">조건/계산식 계산</button>
+        <br><br>
+        <div>
+            <table border="1" class="result-table">
+                <thead>
+                    <tr>
+                        <th>기본키</th>
+                        <th>조건식(참)</th>
+                        <th>계산식</th>
+                        <th>계산결과</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
-    <script src="index.js"></script>
+    <script src="index.js" defer></script>
 </body>
-
 </html>
