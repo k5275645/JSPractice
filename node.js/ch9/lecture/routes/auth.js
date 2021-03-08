@@ -1,7 +1,8 @@
 const express = require('express');
+const passport = require('passport');
 const bcrypt = require('bcrypt');
-const User = require('../models/user');
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
+const User = require('../models/user');
 
 const router = express.Router();
 
@@ -39,16 +40,23 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
         console.error(loginError);
         return next(loginError);
       }
-      // 여기서 세션쿠리를 브라우저로 보내준다.
       return res.redirect('/');
     });
   })(req, res, next); // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙입니다.
 });
 
 router.get('/logout', isLoggedIn, (req, res) => {
-  req.logout(); // 세션쿠키가 사라진다.
-  req.session.destroy(); // 세션파괴
-  req.redirect('/');
+  req.logout();
+  req.session.destroy();
+  res.redirect('/');
+});
+
+router.get('/kakao', passport.authenticate('kakao'));
+
+router.get('/kakao/callback', passport.authenticate('kakao', {
+  failureRedirect: '/',
+}), (req, res) => {
+  res.redirect('/');
 });
 
 module.exports = router;
