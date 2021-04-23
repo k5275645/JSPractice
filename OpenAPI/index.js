@@ -5,6 +5,8 @@ const usdtBtn = document.querySelector(".USDT");
 
 const marketTable = document.querySelector(".market-table");
 const marketTableBody = marketTable.querySelector("tbody");
+const interestTable = document.querySelector(".interest-table");
+const interestTableBody = interestTable.querySelector("tbody");
 
 const options = { method: "GET" };
 
@@ -12,8 +14,14 @@ let KRW = [];
 let BTC = [];
 let USDT = [];
 let markets = [];
+marketTable.style.display = "none";
+interestTable.style.display = "none";
 
 //clearInterval(timer);
+
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 async function getItems(mf, flagNum) {
   const getResponse = await fetch(
@@ -22,32 +30,67 @@ async function getItems(mf, flagNum) {
   );
   const get = await getResponse.json();
   const tikerInfo = await get[0];
-  marketTableBody.childNodes[flagNum].childNodes[3].innerText =
-    tikerInfo.opening_price;
-  marketTableBody.childNodes[flagNum].childNodes[4].innerText =
-    tikerInfo.high_price;
-  marketTableBody.childNodes[flagNum].childNodes[5].innerText =
-    tikerInfo.low_price;
-  marketTableBody.childNodes[flagNum].childNodes[6].innerText =
-    tikerInfo.trade_price;
-  return tikerInfo;
+  marketTableBody.childNodes[
+    flagNum
+  ].childNodes[4].innerText = numberWithCommas(tikerInfo.opening_price);
+  marketTableBody.childNodes[
+    flagNum
+  ].childNodes[5].innerText = numberWithCommas(tikerInfo.high_price);
+  marketTableBody.childNodes[
+    flagNum
+  ].childNodes[6].innerText = numberWithCommas(tikerInfo.low_price);
+  marketTableBody.childNodes[
+    flagNum
+  ].childNodes[7].innerText = numberWithCommas(tikerInfo.trade_price);
+  marketTableBody.childNodes[flagNum].childNodes[8].innerText =
+    ((tikerInfo.trade_price / tikerInfo.opening_price - 1) * 100).toFixed(2) +
+    "%";
+
+  marketTableBody.childNodes[flagNum].childNodes[4].style.textAlign = "right";
+  marketTableBody.childNodes[flagNum].childNodes[5].style.textAlign = "right";
+  marketTableBody.childNodes[flagNum].childNodes[6].style.textAlign = "right";
+  marketTableBody.childNodes[flagNum].childNodes[7].style.textAlign = "right";
+
+  if (tikerInfo.opening_price < tikerInfo.trade_price) {
+    marketTableBody.childNodes[flagNum].childNodes[7].style.color = "red";
+    marketTableBody.childNodes[flagNum].childNodes[8].style.color = "red";
+  } else if (tikerInfo.opening_price > tikerInfo.trade_price) {
+    marketTableBody.childNodes[flagNum].childNodes[7].style.color = "blue";
+    marketTableBody.childNodes[flagNum].childNodes[8].style.color = "blue";
+  }
 }
 
 function getPrice() {
   let flagNum = -1;
   let timer = setInterval(() => {
     for (i = 0; i < 10; i++) {
-      if (flagNum > markets.length - 2) {
-        flagNum = 0;
-      } else {
-        flagNum++;
-      }
+      flagNum > markets.length - 2 ? (flagNum = 0) : flagNum++;
       getItems(markets[flagNum], flagNum);
     }
   }, 1000);
 }
 
+function addInterestList(e) {
+  let cloneItem = e.path[1].cloneNode(true);
+  cloneItem.firstChild.disabled = true;
+  // console.log(cloneItem);
+  //console.log(interestTableBody.childNodes);
+  if (e.path[0].checked) {
+    interestTableBody.appendChild(cloneItem);
+  } else {
+    interestTableBody.childNodes.forEach((item) => {
+      if ((e.path[1] = item)) {
+        interestTableBody.removeChild(item);
+      }
+    });
+  }
+  interestTableBody.childNodes.length === 0
+    ? (interestTable.style.display = "none")
+    : (interestTable.style.display = "block");
+}
+
 function appendItem(e) {
+  marketTable.style.display = "block";
   let temp;
   if (e.target.classList.value === "KRW") {
     temp = KRW;
@@ -61,8 +104,10 @@ function appendItem(e) {
   }
 
   markets.length = 0;
-  temp.forEach((item) => {
+  temp.forEach((item, index) => {
     const tr = document.createElement("tr");
+    const trId = index;
+    const checkBox = document.createElement("input");
     const td1 = document.createElement("td");
     const td2 = document.createElement("td");
     const td3 = document.createElement("td");
@@ -70,12 +115,16 @@ function appendItem(e) {
     const td5 = document.createElement("td");
     const td6 = document.createElement("td");
     const td7 = document.createElement("td");
+    const td8 = document.createElement("td");
+    checkBox.type = "checkBox";
+    checkBox.addEventListener("change", addInterestList);
 
     markets.push(item.market);
     td1.innerHTML = item.market;
     td2.innerHTML = item.korean_name;
     td3.innerHTML = item.english_name;
-
+    tr.id = trId;
+    tr.appendChild(checkBox);
     tr.appendChild(td1);
     tr.appendChild(td2);
     tr.appendChild(td3);
@@ -83,6 +132,7 @@ function appendItem(e) {
     tr.appendChild(td5);
     tr.appendChild(td6);
     tr.appendChild(td7);
+    tr.appendChild(td8);
 
     marketTableBody.appendChild(tr);
   });
